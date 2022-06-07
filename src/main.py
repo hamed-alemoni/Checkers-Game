@@ -1,7 +1,7 @@
 import pygame
-from checkers.constant import WIDTH, HEIGHT, SQUARE_SIZE
+from checkers.constant import WIDTH, HEIGHT, SQUARE_SIZE, RED
 from checkers.board import Board
-
+from checkers.game import Game
 
 
 FPS = 60
@@ -22,11 +22,15 @@ def main():
     run = True
     # make clock to run game not too fast or slow. it runs actually based on hardware
     clock = pygame.time.Clock()
-    board = Board()
+    game = Game(WINDOW)
 
     while run:
         # determine max FPS
         clock.tick(FPS)
+
+        if game.winner() != None:
+            print(game.winner())
+            run = False
 
         for event in pygame.event.get():
 
@@ -39,14 +43,13 @@ def main():
                 position = pygame.mouse.get_pos()
                 # find row and column
                 row, column = get_row_column_from_mouse(position)
-                # get piece in there
-                piece = board.get_piece(row, column)
                 
-                board.move(piece, 4 , 3)
+                if game.turn == RED:
+                    
+                    game.select(row, column)
 
         # make basic checkers window
-        board.draw_window(WINDOW)
-        pygame.display.update()
+        game.update()
 
     pygame.quit()
 
