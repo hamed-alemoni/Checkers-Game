@@ -7,7 +7,21 @@ class Board:
         self.red_left = self.white_left = 12
         self.red_kings = self.white_kings = 0
         self.create_board()
+    # this is evaluate function for minimax algorithm
+    def evaluate(self):
+        return self.white_left - self.red_left + (0.5 * (self.white_kings - self.red_kings))
+
     
+    def get_all_pieces(self, color):
+        
+        pieces = []
+
+        for row in self.board:
+            for piece in row:
+                if piece != 0 and piece.color == color:
+                    pieces.append(piece)
+        return pieces
+        
     def draw_squares(self, window):
         
         window.fill(BLACK)
@@ -59,7 +73,7 @@ class Board:
         piece.move_piece(row, column)
 
         # piece make a king
-        if row == ROWS or row == 0:
+        if row == ROWS - 1 or row == 0:
             piece.make_king()  
 
             if piece.color == WHITE:
