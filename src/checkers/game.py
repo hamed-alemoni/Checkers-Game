@@ -32,10 +32,11 @@ class Game:
                 self.select(row, column)
         
         piece = self.board.get_piece(row, column)
-        if piece != 0 and self.turn == piece.color:
-            self.selected_piece = piece
-            self.valid_moves = self.board.get_valid_moves(piece)
-            return True
+        if piece != 0 and piece.color == self.turn :
+            if self.turn == piece.color:
+                self.selected_piece = piece
+                self.valid_moves = self.board.get_valid_moves(piece)
+                return True
         
         return False
     
@@ -75,3 +76,11 @@ class Game:
         for move in moves:
             row, column = move
             pygame.draw.circle(self.window, BLUE, (column * SQUARE_SIZE + SQUARE_SIZE//2, row * SQUARE_SIZE + SQUARE_SIZE//2), 15)
+
+    
+    def get_board(self):
+        return self.board
+    
+    def ai_move(self, board):
+        self.board = board
+        self.change_turn()
