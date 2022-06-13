@@ -10,13 +10,6 @@ class Piece:
             self.column = column
             self.color = color
             self.king = False
-            
-            if self.color == RED:
-                self.direction = 1
-            elif self.color == WHITE:
-                self.direction = 0
-            
-
             self.x = None
             self.y = None
 
